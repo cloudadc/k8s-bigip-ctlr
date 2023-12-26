@@ -1106,6 +1106,7 @@ func main() {
 	appMgr.TeemData = td
 	GetNamespaces(appMgr)
 	intervalFactor := time.Duration(*nodePollInterval)
+        log.Infof("pollers NewNodePoller, nodePollInterval: %d, intervalFactor: %d", *nodePollInterval, intervalFactor)
 	np := pollers.NewNodePoller(appMgrParms.KubeClient, intervalFactor*time.Second, *nodeLabelSelector)
 	err = setupNodePolling(appMgr, np, eventChan, appMgrParms.KubeClient)
 	if nil != err {
@@ -1116,6 +1117,7 @@ func main() {
 	np.Run()
 	defer np.Stop()
 
+        log.Infof("setup watchers, syncInterval: %d", *syncInterval)
 	setupWatchers(appMgr, time.Duration(*syncInterval)*time.Second)
 	// Expose Prometheus metrics
 	http.Handle("/metrics", promhttp.Handler())
@@ -1129,10 +1131,14 @@ func main() {
 		log.Fatal(http.ListenAndServe(*httpAddress, nil).Error())
 	}()
 
+        log.Infof("Started /metrics and /health service")
+
 	stopCh := make(chan struct{})
 
+        log.Infof("appMgr run")
 	appMgr.Run(stopCh)
 
+        log.Infof("signal process")
 	sigs := make(chan os.Signal, 1)
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
 	sig := <-sigs

@@ -319,7 +319,7 @@ func (am *AS3Manager) processFilterTenants(tempAS3Config AS3Config) (bool, strin
 			am.as3ActiveConfig.tenantMap[partition] = tempAS3Config.tenantMap[partition]
 			am.as3ActiveConfig.updateConfig(tempAS3Config)
 
-			log.Debugf("[AS3] Posting AS3 Declaration")
+			log.Debugf("[AS3] Posting AS3 Declaration - processFilterTenants")
 			_, responseCode := am.PostManager.postConfigRequests(string(tenantDecl), am.PostManager.getAS3APIURL([]string{partition}))
 			responseStatusList[responseCode] = responseStatusList[responseCode] + 1
 
@@ -371,7 +371,7 @@ func (am *AS3Manager) postAS3Config(tempAS3Config AS3Config) (bool, string) {
 		}
 	}
 
-	log.Debugf("[AS3] Posting AS3 Declaration")
+	log.Debugf("[AS3] Posting AS3 Declaration - postAS3Config")
 
 	am.as3ActiveConfig.updateConfig(tempAS3Config)
 
@@ -519,11 +519,13 @@ func (am *AS3Manager) getDeletedTenantsFromTenantMap(curTenantMap map[string]int
 
 // Method to delete AS3 partition using partition endpoint
 func (am *AS3Manager) DeleteAS3Tenant(partition string) (bool, string) {
+        log.Debugf("[AS3] Posting AS3 Declaration - DeleteAS3Tenant")
 	emptyAS3Declaration := am.getEmptyAs3Declaration(partition)
 	return am.PostManager.postConfigRequests(string(emptyAS3Declaration), am.PostManager.getAS3APIURL([]string{partition}))
 }
 
 func (am *AS3Manager) CleanAS3Tenant(partition string) (bool, string) {
+        log.Debugf("[AS3] Posting AS3 Declaration - CleanAS3Tenant")
 	emptyAS3Declaration := am.getEmptyAs3DeclarationForCISManagedPartition(partition)
 	return am.PostManager.postConfigRequests(string(emptyAS3Declaration), am.PostManager.getAS3APIURL([]string{partition}))
 }
