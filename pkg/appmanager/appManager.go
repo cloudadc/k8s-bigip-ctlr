@@ -886,6 +886,7 @@ func (appMgr *Manager) enqueueConfigMap(obj interface{}, operation string) {
 		for _, key := range keys {
 			key.Operation = operation
 			appMgr.vsQueue.Add(*key)
+                        log.Infof("[CORE] Add %v to queue", *key)
 		}
 	}
 }
@@ -895,6 +896,7 @@ func (appMgr *Manager) enqueueService(obj interface{}, operation string) {
 		for _, key := range keys {
 			key.Operation = operation
 			appMgr.vsQueue.Add(*key)
+                        log.Infof("[CORE] Add %v to queue", *key)
 		}
 	}
 }
@@ -904,6 +906,7 @@ func (appMgr *Manager) enqueueEndpoints(obj interface{}, operation string) {
 		for _, key := range keys {
 			key.Operation = operation
 			appMgr.vsQueue.Add(*key)
+                        log.Infof("[CORE] Add %v to queue", *key)
 		}
 	}
 }
@@ -913,6 +916,7 @@ func (appMgr *Manager) enqueuePod(obj interface{}, operation string) {
 		for _, key := range keys {
 			key.Operation = operation
 			appMgr.vsQueue.Add(*key)
+                        log.Infof("[CORE] Add %v to queue", *key)
 		}
 	}
 }
@@ -922,6 +926,7 @@ func (appMgr *Manager) enqueueSecrets(obj interface{}, operation string) {
 		for _, key := range keys {
 			key.Operation = operation
 			appMgr.vsQueue.Add(*key)
+                        log.Infof("[CORE] Add %v to queue", *key)
 		}
 	}
 
@@ -932,6 +937,7 @@ func (appMgr *Manager) enqueueIngress(obj interface{}, operation string) {
 		for _, key := range keys {
 			key.Operation = operation
 			appMgr.vsQueue.Add(*key)
+                        log.Infof("[CORE] Add %v to queue", *key)
 		}
 	}
 }
@@ -944,6 +950,7 @@ func (appMgr *Manager) enqueueRoute(obj interface{}, operation string) {
 		for _, key := range keys {
 			key.Operation = operation
 			appMgr.vsQueue.Add(*key)
+                        log.Infof("[CORE] Add %v to queue", *key)
 		}
 	}
 }
