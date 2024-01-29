@@ -3511,6 +3511,7 @@ func (appMgr *Manager) getEndpoints(selector, namespace string) []Member {
 			}*/
 		}
 	}
+        log.Infof("[CORE] Query service '%s', get endpoints %v", selector, members)
 	return members
 }
 
