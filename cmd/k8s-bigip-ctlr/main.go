@@ -1131,14 +1131,11 @@ func main() {
 		log.Fatal(http.ListenAndServe(*httpAddress, nil).Error())
 	}()
 
-        log.Infof("Started /metrics and /health service")
 
 	stopCh := make(chan struct{})
 
-        log.Infof("appMgr run")
 	appMgr.Run(stopCh)
 
-        log.Infof("signal process")
 	sigs := make(chan os.Signal, 1)
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
 	sig := <-sigs
