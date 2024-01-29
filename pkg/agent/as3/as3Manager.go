@@ -658,6 +658,9 @@ func (am *AS3Manager) IsBigIPAppServicesAvailable() error {
 }
 
 func (am *AS3Manager) updateNetworkingConfig() {
+        if am.l2l3Agent.eventChan == nil {
+                return
+        }
 	log.Debugf("[AS3] Preparing response message to response handler for arp and fdb config")
 	am.SendARPEntries()
 	am.SendAgentResponse()
